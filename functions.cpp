@@ -10,7 +10,7 @@ struct timetable
     struct time departure_time;
     struct time arrival_time;
 };
-int input_number()
+int input_number(string line)
 {
     int n;
     char ch;
@@ -18,7 +18,7 @@ int input_number()
     do
     {
         check = true;
-        cout << "Train number:";
+        cout << line;
         cin >> n;
         cin.get(ch);
         if(cin.fail() || (ch != '\n'))
@@ -26,7 +26,7 @@ int input_number()
             check = false;
             cout << "Error: incorrect input\n";
             cin.clear();
-            cin.ignore(200, '\n');
+            cin.ignore(100, '\n');
         }
     }while(!check);
     return n;
@@ -47,7 +47,7 @@ int input_hour(string line)
             check = false;
             cout << "Error: incorrect input\n " << endl;
             cin.clear();
-            cin.ignore(200, '\n');
+            cin.ignore(100, '\n');
         }
     }while(!check);
     return n;
@@ -68,7 +68,7 @@ int input_minute( string line )
             check = false;
             cout << "Error: incorrect input\n " << endl;
             cin.clear();
-            cin.ignore(200, '\n');
+            cin.ignore(100, '\n');
         }
     }while(!check);
     return n;
@@ -78,7 +78,7 @@ void dataInput(ofstream &f)
     timetable table {};
     short choice = 1;
     while(choice == 1){
-        table.number = input_number();
+        table.number = input_number("Train number:");
         cout << "Direction:";
         cin.getline(table.direction, 100);
         table.departure_time.hour = input_hour("Departure time(hours):");
@@ -87,7 +87,7 @@ void dataInput(ofstream &f)
         table.arrival_time.minute = input_minute("Arrival time(minutes):");
         f.write((char *)&table, sizeof(timetable));
         printRecord(table);
-        cout << "Add new record( enter 1 if yes)";
+        cout << "Add new record( enter 1 if yes)"<< endl;
         cin >> choice;
     }
 
@@ -132,12 +132,12 @@ void printFile(string name)
 }
 void printRecord(timetable &p )
 {
-    cout << setw(30) << "-------------------" << endl;
+    cout << setw(20) << "-------------------" << endl;
     cout << "Train number: " << p.number << endl;
     cout << "Direction: " << p.direction << endl;
     cout << "Departure time: "<< p.departure_time.hour << ":"<< p.departure_time.minute << endl;
     cout << "Arrival time: " << p.arrival_time.hour << ":" << p.arrival_time.minute << endl;
-    cout << setw(30) << "-------------------" << endl;
+    cout << setw(20) << "-------------------" << endl;
 }
 void createNewFile(string in_name, string out_name)
 {
@@ -150,7 +150,6 @@ void createNewFile(string in_name, string out_name)
     fin.close();
     fout.close();
 }
-
 void addData(string name)
 {
     ofstream file(name, ios::binary | ios::app);
@@ -160,4 +159,5 @@ void addData(string name)
         cout << "Error: cannot open file" << endl;
     file.close();
 }
+
 
