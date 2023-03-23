@@ -9,8 +9,9 @@ int main() {
     createNewFile( first_file,  second_file);
     cout << "WINTER TIMETABLE:"<< endl;
     printFile(second_file);
+
     short choice;
-    cout << "\nIf you want to add data, press 1";
+    cout << "\nIf you want to add data, press 1\n";
     cin >> choice;
     while(choice == 1){
         addData(first_file);
@@ -19,9 +20,8 @@ int main() {
         createNewFile(first_file, second_file);
         cout << "WINTER TIMETABLE:" << endl;
         printFile(second_file);
-        cout << "\nIf you want to add data, press 1";
+        cout << "\nIf you want to add data, press 1\n";
         cin >> choice;
     }
-    }while(choice == 1);
     return 0;
 }
